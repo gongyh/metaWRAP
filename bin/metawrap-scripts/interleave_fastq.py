@@ -8,36 +8,37 @@ Usage:
 
 import sys
 
-def interleave(f1, f2):
-    """Interleaves two (open) fastq files.
-    """
-    while True:
-	line = f1.readline()
-	if line.strip() == "":
-	    break
-	print(line.strip())
-	
-	for i in range(3):
-	    print(f1.readline().strip())
-	
-	for i in range(4):
-	    print(f2.readline().strip())
 
-if __name__ == '__main__':
+def interleave(f1, f2):
+    """Interleaves two (open) fastq files."""
+    while True:
+        line = f1.readline()
+        if line.strip() == "":
+            break
+        print(line.strip())
+
+        for i in range(3):
+            print(f1.readline().strip())
+
+        for i in range(4):
+            print(f2.readline().strip())
+
+
+if __name__ == "__main__":
     try:
-	file1 = sys.argv[1]
-	file2 = sys.argv[2]
+        file1 = sys.argv[1]
+        file2 = sys.argv[2]
     except:
-	print(__doc__)
-	sys.exit(1)
+        print(__doc__)
+        sys.exit(1)
 
     if file1[-2:] == "gz":
-	import gzip
-	with gzip.open(file1) as f1:
-	    with gzip.open(file2) as f2:
-		interleave(f1, f2)
-    else:
-	with open(file1) as f1:
-	    with open(file2) as f2:
-		interleave(f1, f2)
+        import gzip
 
+        with gzip.open(file1) as f1:
+            with gzip.open(file2) as f2:
+                interleave(f1, f2)
+    else:
+        with open(file1) as f1:
+            with open(file2) as f2:
+                interleave(f1, f2)

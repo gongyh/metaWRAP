@@ -15,22 +15,23 @@ import os, os.path
 import sys
 import csv
 
+
 def process_quant_file(root, filename, outname):
     """
     Convert individual quant.sf files into .counts files (transcripts\tcount).
     """
-    print('Loading counts from:', root, filename, file=sys.stderr)
-    outfp = open(outname, 'w')
+    print("Loading counts from:", root, filename, file=sys.stderr)
+    outfp = open(outname, "w")
     print("transcript\tcount", file=outfp)
 
     d = {}
     full_file = os.path.join(root, filename)
     for line in open(full_file):
-	if line.startswith('Name'):
-	    continue
-	name, length, eff_length, tpm, count = line.strip().split('\t')
+        if line.startswith("Name"):
+            continue
+        name, length, eff_length, tpm, count = line.strip().split("\t")
 
-	print("%s\t%s" % (name, float(tpm)), file=outfp)
+        print("%s\t%s" % (name, float(tpm)), file=outfp)
 
 
 def main():
@@ -42,19 +43,20 @@ def main():
     """
     quantlist = []
 
-    start_dir = '.'
-    print('Starting in:', os.path.abspath(start_dir), file=sys.stderr)
-    for root, dirs, files in os.walk('.'):
-	for filename in files:
-	    if filename.endswith('quant.sf'):
-		dirname = os.path.basename(root)
-		outname = dirname + '.counts'
-		process_quant_file(root, filename, dirname + '.counts')
-		quantlist.append(outname)
-		
-		break
+    start_dir = "."
+    print("Starting in:", os.path.abspath(start_dir), file=sys.stderr)
+    for root, dirs, files in os.walk("."):
+        for filename in files:
+            if filename.endswith("quant.sf"):
+                dirname = os.path.basename(root)
+                outname = dirname + ".counts"
+                process_quant_file(root, filename, dirname + ".counts")
+                quantlist.append(outname)
 
-    print(",\n".join([ "\"%s\"" % i for i in sorted(quantlist)]))
+                break
 
-if __name__ == '__main__':
+    print(",\n".join(['"%s"' % i for i in sorted(quantlist)]))
+
+
+if __name__ == "__main__":
     main()
