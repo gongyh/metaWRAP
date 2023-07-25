@@ -31,6 +31,7 @@ help_message () {
 	echo ""
 	echo "	--strict-cut-off	maximum allowed SNPs for strict read mapping (default=2)"
 	echo "	--permissive-cut-off	maximum allowed SNPs for permissive read mapping (default=5)"
+        echo "  --use-eukcc             run EukCC to assess bins (default=false)"
 	echo "	--skip-checkm		dont run CheckM to assess bins"
 	echo "	--parallel		run spades reassembly in parallel, but only using 1 thread per bin"
 	echo "	--mdmcleaner		the bin directory have results from MDMcleaner"
@@ -76,11 +77,12 @@ bins=None; f_reads=None; r_reads=None; out=None
 # long options defaults
 strict_max=2; permissive_max=5
 run_checkm=true
+run_eukcc=false
 run_parallel=false
 nanopore=false
 mdmcleaner=false
 # load in params
-OPTS=`getopt -o ht:m:o:x:c:l:b:1:2: --long help,parallel,skip-checkm,strict-cut-off,permissive-cut-off,nanopore,mdmcleaner -- "$@"`
+OPTS=`getopt -o ht:m:o:x:c:l:b:1:2: --long help,parallel,skip-checkm,use-eukcc,strict-cut-off,permissive-cut-off,nanopore,mdmcleaner -- "$@"`
 # make sure the params are entered correctly
 if [ $? -ne 0 ]; then help_message; exit 1; fi
 
@@ -100,6 +102,7 @@ while true; do
 		--strict-cut-off) strict_max=$2; shift 2;;
 		--permissive-cut-off) permissive_max=$2; shift 2;;
 		--skip-checkm) run_checkm=false; shift 1;;
+                --use-eukcc) run_eukcc=false; shift 1;;
 		--parallel) run_parallel=true; shift 1;;
 		--nanopore) nanopore_reads=$2;nanopore=true; shift 2;;
 		--mdmcleaner) mdmcleaner=true; shift 1;;
@@ -311,7 +314,7 @@ fi
 
 
 
-if [ "$run_checkm" = true ]; then
+if [ "$run_checkm" = true ] && [ "$run_eukcc" = false ] ; then
 	########################################################################################################
 	########################             RUN CHECKM ON REASSEMBLED BINS             ########################
 	########################################################################################################
@@ -341,7 +344,27 @@ if [ "$run_checkm" = true ]; then
 	if [[ $? -ne 0 ]]; then error "Cannot make checkm summary file. Exiting."; fi
 	rm -r ${out}/tmp
 
+elif [ "$run_eukcc" = true ] ; then
+        ########################################################################################################
+        ########################             RUN EukCC ON REASSEMBLED BINS             ########################
+        ########################################################################################################
+        announcement "RUN EukCC ON REASSEMBLED BINS"
 
+        # copy over original bins
+        for base in $( ls ${out}/original_bins/ | grep "\.fa$" ); do
+                i=${out}/original_bins/$base
+                cp $i ${out}/reassembled_bins/${base%.*}.orig.fa
+        done
+
+        comm "Running EukCC on best bins (reassembled and original)"
+        if [[ -d ${out}/reassembled_bins.eukcc ]]; then rm -r ${out}/reassembled_bins.eukcc; fi
+        eukcc folder --db $EUKCC2_DB --out ${out}/reassembled_bins.eukcc --threads $threads ${out}/reassembled_bins
+        if [[ ! -s ${out}/reassembled_bins.eukcc/eukcc.csv ]]; then error "Something went wrong with running EukCC. Exiting..."; fi
+        ${SOFT}/summarize_eukcc.py ${out}/reassembled_bins.eukcc/eukcc.csv | (read -r; printf "%s\n" "$REPLY"; sort) > ${out}/reassembled_bins.stats
+        if [[ $? -ne 0 ]]; then error "Cannot make eukcc summary file. Exiting."; fi
+fi
+
+if [ "$run_checkm" = true ] || [ "$run_eukcc" = true ] ; then
 	########################################################################################################
         ########################          FINDING THE BEST VERSION OF EACH BIN          ########################
 	########################################################################################################
