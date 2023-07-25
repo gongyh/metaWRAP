@@ -18,18 +18,15 @@ else:
 
 
 for line in open(sys.argv[1]):
-	dic=eval(line.strip().split("\t")[1])
-	name=line.split("\t")[0]
-
-
+	cl=line.strip().split("\t")
+	name=cl[0]
+	if name=="bin": # header
+		continue
 	if len(sys.argv)==3:	
-		print("\t".join([name, str(dic["completeness"]),\
-		 str(dic["contamination"]), binner]))
+		print("\t".join([name, cl[1], cl[2], binner]))
 
 	elif len(sys.argv)==4:
-		print("\t".join([name, str(dic["completeness"]),\
-		 str(dic["contamination"]), source[name]]))
+		print("\t".join([name, cl[1], cl[2], source[name]]))
 
 	else:
-		print("\t".join([name, str(dic["completeness"]),\
-		 str(dic["contamination"])[:5]]))
+		print("\t".join([name, cl[1], cl[2]))
