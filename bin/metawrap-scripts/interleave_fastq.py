@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python
 # encoding:utf8
 # authors: Erik Garrison, Sébastien Boisvert
 """This script takes two fastq or fastq.gz files and interleaves them

@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python
 import sys
 for line in open(sys.argv[1]):
 	cut=line.split('\t')

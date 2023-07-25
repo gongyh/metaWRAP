@@ -15,3 +15,6 @@ BMTAGGER_DB=/scratch/gu/BMTAGGER_DB
 # paths to BLAST databases
 BLASTDB=/scratch/gu/NCBI_nt
 TAXDUMP=/scratch/gu/NCBI_tax
+
+# path to EukCC database
+EUKCC2_DB=/scratch/gu/eukcc2_db_ver_1.1

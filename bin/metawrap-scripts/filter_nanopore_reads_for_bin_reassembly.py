@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python
 import sys, os
 
 complement = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A', 'a':'t', 't':'a', 'c':'g', 'g':'c', 'N':'N', 'n':'n', '*':'*'} 
