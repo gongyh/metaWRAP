@@ -34,7 +34,7 @@ for line in open(sys.argv[1]):
 
 
 for i in best_bins:
-	print i+'.'+best_bins[i][0]
+	print(i+'.'+best_bins[i][0])
 	
 
 

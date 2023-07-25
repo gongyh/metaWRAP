@@ -20,7 +20,7 @@ for i, line in enumerate(open(sys.argv[2])):
 		#	if soi in line: found=True
 
 	if found==True: 
-		print line
+		print(line)
 		sys.stdout.flush()
 
 

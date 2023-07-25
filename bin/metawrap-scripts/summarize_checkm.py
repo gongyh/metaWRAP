@@ -6,15 +6,15 @@ import sys
 
 if len(sys.argv)==3: 
 	binner=sys.argv[2]
-	print "bin\tcompleteness\tcontamination\tGC\tlineage\tN50\tsize\tbinner"
+	print("bin\tcompleteness\tcontamination\tGC\tlineage\tN50\tsize\tbinner")
 elif len(sys.argv)==4:
 	source={}
 	for line in open(sys.argv[3]):
 		cut=line.strip().split("\t")
 		source[cut[0]]=cut[7]
-	print "bin\tcompleteness\tcontamination\tGC\tlineage\tN50\tsize\tbinner"
+	print("bin\tcompleteness\tcontamination\tGC\tlineage\tN50\tsize\tbinner")
 else:
-	print "bin\tcompleteness\tcontamination\tGC\tlineage\tN50\tsize"
+	print("bin\tcompleteness\tcontamination\tGC\tlineage\tN50\tsize")
 
 
 for line in open(sys.argv[1]):
@@ -27,19 +27,19 @@ for line in open(sys.argv[1]):
 
 
 	if len(sys.argv)==3:	
-		print "\t".join([name, str(dic["Completeness"])[:5],\
+		print("\t".join([name, str(dic["Completeness"])[:5],\
 		 str(dic["Contamination"])[:5], str(dic["GC"])[:5],\
 		 dic["marker lineage"], str(dic["N50 (contigs)"]),\
-		 str(dic["Genome size"]), binner])
+		 str(dic["Genome size"]), binner]))
 
 	elif len(sys.argv)==4:
-		print "\t".join([name, str(dic["Completeness"])[:5],\
+		print("\t".join([name, str(dic["Completeness"])[:5],\
 		 str(dic["Contamination"])[:5], str(dic["GC"])[:5],\
 		 dic["marker lineage"], str(dic["N50 (contigs)"]),\
-		 str(dic["Genome size"]), source[name]])
+		 str(dic["Genome size"]), source[name]]))
 
 	else:
-		print "\t".join([name, str(dic["Completeness"])[:5],\
+		print("\t".join([name, str(dic["Completeness"])[:5],\
 		 str(dic["Contamination"])[:5], str(dic["GC"])[:5],\
 		 dic["marker lineage"], str(dic["N50 (contigs)"]),\
-		 str(dic["Genome size"])])
+		 str(dic["Genome size"])]))

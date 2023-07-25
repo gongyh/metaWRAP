@@ -87,10 +87,10 @@ bin_size_cutoff_MB = float("{0:.2f}".format(bin_size_cutoff / (1024 * 1024)))
 # get input bin folder list
 input_bin_folder_list = []
 if args['3'] == None:
-    print('Specified 2 input bin sets: -1 %s -2 %s' % (input_bin_folder_1, input_bin_folder_2))
+    print(('Specified 2 input bin sets: -1 %s -2 %s' % (input_bin_folder_1, input_bin_folder_2)))
     input_bin_folder_list = [input_bin_folder_1, input_bin_folder_2]
 else:
-    print('Specified 3 input bin sets: -1 %s -2 %s -3 %s' % (input_bin_folder_1, input_bin_folder_2, input_bin_folder_3))
+    print(('Specified 3 input bin sets: -1 %s -2 %s -3 %s' % (input_bin_folder_1, input_bin_folder_2, input_bin_folder_3)))
     input_bin_folder_list = [input_bin_folder_1, input_bin_folder_2, input_bin_folder_3]
 
 ################################################ Define folder/file name ###############################################
@@ -117,7 +117,7 @@ for bin_folder in input_bin_folder_list:
     all_input_bins_number_list.append(len(bin_folder_bins))
     folder_bins_dict[bin_folder] = bin_folder_bins
     if len(bin_folder_bins) == 0:
-        print('No input bin detected from %s folder, please double-check!' % (bin_folder))
+        print(('No input bin detected from %s folder, please double-check!' % (bin_folder)))
         exit()
 
     bin_folder_bins_ext_list = []
@@ -133,8 +133,8 @@ for bin_folder in input_bin_folder_list:
             pass
     # check whether bins in the same folder have same extension, exit if not
     if len(bin_folder_bins_ext_list_uniq) > 1:
-        print('Different file extensions were found from %s bins, please use same extension (fa, fas or fasta) '
-              'for all bins in the same folder.' % (bin_folder))
+        print(('Different file extensions were found from %s bins, please use same extension (fa, fas or fasta) '
+              'for all bins in the same folder.' % (bin_folder)))
         exit()
     else:
         pass
@@ -153,7 +153,7 @@ combined_all_bins_file = '%s/%s/combined_all_bins.fasta' % (wd, output_folder)
 separator = '__'
 for each_folder in input_bin_folder_list:
     sleep(1)
-    print('Add folder/bin name to contig name for %s bins' % each_folder)
+    print(('Add folder/bin name to contig name for %s bins' % each_folder))
     os.mkdir('%s/%s/%s_new' % (wd, output_folder, each_folder))
     # add binning program and bin id to metabat_bin's contig name
     each_folder_bins = folder_bins_dict[each_folder]
@@ -250,7 +250,7 @@ contig_assignments_sorted_one_line.close()
 
 refined_bin_number = n
 sleep(1)
-print('The number of refined bins: %s' % refined_bin_number)
+print(('The number of refined bins: %s' % refined_bin_number))
 
 
 # Export refined bins and prepare input for GoogleVis

@@ -12,7 +12,7 @@
 help_message () {
         echo ""
         echo "Run on assembled contigs in fasta formart."
-        echo "Usage: metaWRAP split_contigs [options] -o output_dir assembly.fasta"
+        echo "Usage: metaWRAP split_contigs -i contigs_fasta -o output_dir"
         echo "Options:"
         echo ""
         echo "  -i STR          input fasta file of assembled contigs"
@@ -54,17 +54,15 @@ while true; do
         esac
 done
 
-
 ########################################################################################################
 ########################           MAKING SURE EVERYTHING IS SET UP             ########################
 ########################################################################################################
-
 # check if all parameters are entered
-if [ "$in" = "false" ] || [ "$#" -lt 1 ] ; then 
+if [ "$in" = "false" ] ; then 
         help_message; exit 1
 fi
 
-if [ "$out" = "false" ] || [ "$#" -lt 1 ] ; then
+if [ "$out" = "false" ] ; then
         help_message; exit 1
 fi
 

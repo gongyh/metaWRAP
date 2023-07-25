@@ -3,17 +3,17 @@ package:
   version: "1.3.2"
 
 source:
-  git_url: https://github.com/bxlab/metaWRAP.git
+  git_url: https://github.com/gongyh/metaWRAP.git
 
 requirements:
   build:
 
   run:
-    - biopython 1.68
+    - biopython
     - blas 2.5 mkl
-    - blast 2.6.0
+    - blast
     - bmtagger 3.101
-    - bowtie2 2.3.5
+    - bowtie2
     - bwa 0.7.17
     - checkm-genome 1.0.12
     - concoct 1.0.0
@@ -43,7 +43,7 @@ requirements:
     - eukrep 0.6.7
 
 about:
-  home: https://github.com/ursky/metaWRAP
+  home: https://github.com/gongyh/metaWRAP
   license: MIT
   license_file: LICENSE
 

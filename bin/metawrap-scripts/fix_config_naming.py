@@ -7,4 +7,4 @@ for line in open(sys.argv[1]):
 			if c=="=": c="_"
 			sys.stdout.write(c)
 	else:
-		print line.rstrip()
+		print(line.rstrip())

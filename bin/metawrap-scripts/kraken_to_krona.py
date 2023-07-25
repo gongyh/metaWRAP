@@ -24,5 +24,5 @@ for line in open(sys.argv[1]):
 
 
 for tax in data:
-	print str(data[tax]) + "\t" + tax
+	print(str(data[tax]) + "\t" + tax)
 

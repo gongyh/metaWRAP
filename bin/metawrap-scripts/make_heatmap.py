@@ -1,5 +1,5 @@
 #!/usr/bin/env python2.7
-print "loading libs..."
+print("loading libs...")
 import sys
 import numpy as np
 import pandas as pd
@@ -12,7 +12,7 @@ plt.rc('font', family='arial')
 
 
 def load_lib_sizes(filename):
-	print "loading library sizes..."
+	print("loading library sizes...")
 	libs={}
 	for line in open(filename):
 		if line.startswith("#"): continue
@@ -23,7 +23,7 @@ def load_lib_sizes(filename):
 
 
 def load_data(filename):
-	print "loading abundance data..."
+	print("loading abundance data...")
 	df=pd.read_csv(filename, sep='\t', index_col=0)
 
 	# remove all 0 rows
@@ -36,7 +36,7 @@ def load_data(filename):
 
 
 def set_colors_to_timeline(df):
-	print "adding colored labels..."
+	print("adding colored labels...")
 	lut=[]
 	for sample in df.columns.values:
 		if "2013-04" in sample: lut.append('m')
@@ -50,7 +50,7 @@ def set_colors_to_timeline(df):
 
 
 def draw_clustermap(df, lut):
-	print "drawing clustermap..."
+	print("drawing clustermap...")
 	sns.set(font_scale=1)
 	df = df.fillna(0)
 	if lut!=False:

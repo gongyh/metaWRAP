@@ -85,7 +85,7 @@ def translate_kraken2_annotations(annotation_file=None, kraken2_db=None, output=
         return None
 
     names_map, ranks_map = load_kraken_db_metadata(kraken2_db)
-    print("Writing translated taxonomy names to %s" % output)
+    print(("Writing translated taxonomy names to %s" % output))
     with open(output, "w") as output:
         with open(annotation_file) as input:
             for line in input:
@@ -109,8 +109,8 @@ def main():
     database_location = sys.argv[1]
     kraken_file = sys.argv[2]
     output_file = sys.argv[3]
-    print("Translating kraken2 annotations from %s, using metadata from the kraken2 database in %s; saving to %s" \
-          % (kraken_file, database_location, output_file))
+    print(("Translating kraken2 annotations from %s, using metadata from the kraken2 database in %s; saving to %s" \
+          % (kraken_file, database_location, output_file)))
     translate_kraken2_annotations(annotation_file=kraken_file, kraken2_db=database_location, output=output_file)
     
 

@@ -25,4 +25,4 @@ for  line in open(sys.argv[2]):
 		ct+=1
 		#print "\t".join(cut[:5] + cut[6:])
 		#print "\t".join(cut[4:6])
-		print "\t".join(cut)
+		print("\t".join(cut))

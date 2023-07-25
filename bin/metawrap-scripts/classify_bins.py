@@ -60,5 +60,5 @@ for filename in os.listdir(sys.argv[2]):
 
 	#print tax_tree
 	consensus=traverse(tax_tree, [], 0)
-	print filename + "\t" + ";".join(consensus)
+	print(filename + "\t" + ";".join(consensus))
 

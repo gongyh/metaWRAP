@@ -19,11 +19,11 @@ for line in open(sys.argv[1]):
 	if line.split("\t")[0]=="seqid":
 		for i, field in enumerate(line.strip().split("\t")):
 			if field=="taxlevel_phylum": phylum_column=i
-		print line.strip() + "\tbin\tbinned_yes_no\tbinned_phylum"
+		print(line.strip() + "\tbin\tbinned_yes_no\tbinned_phylum")
 	elif line.split("\t")[0] in contig_bins:
 		phylum=line.split("\t")[phylum_column]
-		print "\t".join([line.strip(), contig_bins[line.split("\t")[0]], "Binned", phylum])
+		print("\t".join([line.strip(), contig_bins[line.split("\t")[0]], "Binned", phylum]))
 
 	else:
-		print "\t".join([line.strip(), "Unbinned", "Unbinned", "Unbinned"])
+		print("\t".join([line.strip(), "Unbinned", "Unbinned", "Unbinned"]))
 

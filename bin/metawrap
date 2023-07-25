@@ -13,7 +13,7 @@ help_message () {
         echo "	Modules:"
 	echo "	read_qc		Raw read QC module (read trimming and contamination removal)"
         echo "	assembly	Assembly module (metagenomic assembly)"
-        echo "  split_contigs   Split module (use EukRep to split euk and pro)"
+        echo "	split_contigs   Split module (use EukRep to split euk and pro)"
 	echo "	kraken		KRAKEN module (taxonomy annotation of reads and assemblies)"
 	echo "	kraken2		KRAKEN2 module (taxonomy annotation of reads and assemblies)"
 	echo "	blobology	Blobology module (GC vs Abund plots of contigs and bins)"
