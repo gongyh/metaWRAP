@@ -12,7 +12,7 @@ cut=comm.split(" ")
 line=""
 for word in cut:
 	if (len(line) + 1 + len(word))>max_len:
-		edge1=(120-len(line))/2 - 5
+		edge1=int((120-len(line))/2) - 5
 		edge2=120-edge1-len(line) - 10
 		print(delim*5 + " "*edge1 + line + " "*edge2 + delim*5)
 		line=word
