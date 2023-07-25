@@ -13,6 +13,7 @@ help_message () {
         echo "	Modules:"
 	echo "	read_qc		Raw read QC module (read trimming and contamination removal)"
         echo "	assembly	Assembly module (metagenomic assembly)"
+        echo "  split_contigs   Split module (use EukRep to split euk and pro)"
 	echo "	kraken		KRAKEN module (taxonomy annotation of reads and assemblies)"
 	echo "	kraken2		KRAKEN2 module (taxonomy annotation of reads and assemblies)"
 	echo "	blobology	Blobology module (GC vs Abund plots of contigs and bins)"
@@ -55,6 +56,9 @@ elif [ "$1" = phylosift ]; then
 elif [ "$1" = read_qc ]; then
 	echo metawrap read_qc ${@:2}
 	time ${PIPES}/read_qc.sh ${@:2}
+elif [ "$1" = split_contigs ]; then
+        echo metawrap split_contigs ${@:2}
+        time ${PIPES}/split_contigs.sh ${@:2}
 elif [ "$1" = binning ]; then
         echo metawrap binning ${@:2}
         time ${PIPES}/binning.sh ${@:2}
