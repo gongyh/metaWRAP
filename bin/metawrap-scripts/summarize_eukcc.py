@@ -29,4 +29,4 @@ for line in open(sys.argv[1]):
 		print("\t".join([name, cl[1], cl[2], source[name]]))
 
 	else:
-		print("\t".join([name, cl[1], cl[2]))
+		print("\t".join([name, cl[1], cl[2]]))
