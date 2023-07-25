@@ -18,7 +18,7 @@ for word in cut:
 		line=word
 	else:
 		line = line+" "+word
-edge1=(120-len(line))/2 - 5
+edge1=int((120-len(line))/2) - 5
 edge2=120-edge1-len(line) - 10
 print(delim*5 + " "*edge1 + line + " "*edge2 + delim*5)
 
