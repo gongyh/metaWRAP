@@ -59,8 +59,8 @@ for salmon_file in os.listdir(sys.argv[1]):
 		#bin_abundances[bin]["samples"][sample]=bin_abundances[bin]["total_cov"] / bin_abundances[bin]["total_len"]	
 		bin_abundances[bin]["samples"][sample] = np.median(bin_abundances[bin]["cov_list"])
 		#bin_abundances[bin]["samples"][sample] = sum(bin_abundances[bin]["cov_list"])
-                bin_abundances[bin]["total_len"]=0
-                bin_abundances[bin]["total_cov"]=0
+		bin_abundances[bin]["total_len"]=0
+		bin_abundances[bin]["total_cov"]=0
 		bin_abundances[bin]["cov_list"]=[]
 
 

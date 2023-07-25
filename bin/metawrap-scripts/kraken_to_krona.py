@@ -12,7 +12,7 @@ for line in open(sys.argv[1]):
 	#this is a contig! calculate weight with cov*length
 	if "length" in name and len(name.split("_"))>5:
 		if tax in data: data[tax]+=float(name.split("_")[3]) * float(name.split("_")[5])
-                else: data[tax]=float(name.split("_")[3]) * float(name.split("_")[5])
+		else: data[tax]=float(name.split("_")[3]) * float(name.split("_")[5])
 
 	
 	#this is a read! weight is 1

@@ -17,7 +17,7 @@ mappings={}
 
 # parse sam file from bwa mem -a alignment
 for line in sys.stdin:
-        if "NM:i:" not in line: continue
+	if "NM:i:" not in line: continue
 	read=line.split("\t")[0]
 	contig=line.split("\t")[2]
 	if contig not in contig_bins: continue

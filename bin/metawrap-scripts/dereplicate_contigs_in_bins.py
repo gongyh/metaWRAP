@@ -32,10 +32,10 @@ for bin_file in os.listdir(sys.argv[2]):
 print("Making a new dereplicated version of each bin file")
 os.system("mkdir "+sys.argv[3])
 for bin_file in os.listdir(sys.argv[2]):
-        bin_name=".".join(bin_file.split("/")[-1].split(".")[:-1])
+	bin_name=".".join(bin_file.split("/")[-1].split(".")[:-1])
 	out = open(sys.argv[3]+"/"+bin_file,'w')
 	at_least_one=False
-        for line in open(sys.argv[2]+"/"+bin_file):
+	for line in open(sys.argv[2]+"/"+bin_file):
 		if line[0]==">":
 			contig=line[1:-1]
 			if contig_mapping[contig]==bin_name: 

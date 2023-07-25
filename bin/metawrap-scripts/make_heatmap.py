@@ -40,11 +40,11 @@ def set_colors_to_timeline(df):
 	lut=[]
 	for sample in df.columns.values:
 		if "2013-04" in sample: lut.append('m')
-        	elif "2014-09" in sample: lut.append('r')
-        	elif "2015-06" in sample: lut.append('b')
+		elif "2014-09" in sample: lut.append('r')
+		elif "2015-06" in sample: lut.append('b')
 		elif "2015-12" in sample: lut.append('c')
-        	elif "2016-02" in sample: lut.append('y')
-        	elif "2017-02" in sample: lut.append('g')
+		elif "2016-02" in sample: lut.append('y')
+		elif "2017-02" in sample: lut.append('g')
 		else: lut.append('w')
 	return lut
 

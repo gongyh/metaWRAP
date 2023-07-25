@@ -27,8 +27,8 @@ for line in open(sys.argv[3]):
 	if float(cut[1])>c and float(cut[2])<x: good_bins_1[cut[0]+'.fa']=None
 for line in open(sys.argv[4]):
 	if "completeness" in line: continue
-        cut=line.strip().split('\t')
-        if float(cut[1])>c and float(cut[2])<x: good_bins_2[cut[0]+'.fa']=None
+	cut=line.strip().split('\t')
+	if float(cut[1])>c and float(cut[2])<x: good_bins_2[cut[0]+'.fa']=None
 
 
 # these are the dictionaries storing the contig names and lengths of each bin
@@ -43,22 +43,22 @@ for bin_file in good_bins_1:
 		if not line.startswith('>'): continue
 		bins_1[bin_file][line[1:-1]] = int(line.split('_')[3])
 for bin_file in good_bins_2:
-        bins_2[bin_file]={}
-        for line in open(sys.argv[2] + '/' + bin_file):
-                if not line.startswith('>'): continue
-                bins_2[bin_file][line[1:-1]] = int(line.split('_')[3])	
+	bins_2[bin_file]={}
+	for line in open(sys.argv[2] + '/' + bin_file):
+		if not line.startswith('>'): continue
+		bins_2[bin_file][line[1:-1]] = int(line.split('_')[3])	
 '''
 
 
 print("load in the info about the contigs in each bin...")
 for bin_file in good_bins_1:
-        bins_1[bin_file]={}
+	bins_1[bin_file]={}
 	contig_len=0
 	contig_name=""
-        for line in open(sys.argv[1] + '/' + bin_file):
-                if not line.startswith('>'):
+	for line in open(sys.argv[1] + '/' + bin_file):
+		if not line.startswith('>'):
 			contig_len+=len(line.strip())
-                else:
+		else:
 			if contig_name!="":
 				bins_1[bin_file][contig_name] = contig_len
 				contig_len=0
@@ -68,11 +68,11 @@ for bin_file in good_bins_1:
 for bin_file in good_bins_2:
 	contig_len=0
 	contig_name=""
-        bins_2[bin_file]={}
-        for line in open(sys.argv[2] + '/' + bin_file):
-                if not line.startswith('>'): 
+	bins_2[bin_file]={}
+	for line in open(sys.argv[2] + '/' + bin_file):
+		if not line.startswith('>'): 
 			contig_len+=len(line.strip())
-                else:
+		else:
 			if contig_name!="":
 				bins_2[bin_file][contig_name] = contig_len
 				contig_len=0
@@ -97,7 +97,7 @@ for bin_1 in good_bins_1:
 			if contig in bins_2[bin_2]: match_1_length+=bins_2[bin_2][contig]
 			else: mismatch_1_length+=bins_1[bin_1][contig]
 		for contig in bins_2[bin_2]:
-                        if contig in bins_1[bin_1]: match_2_length+=bins_1[bin_1][contig]
+			if contig in bins_1[bin_1]: match_2_length+=bins_1[bin_1][contig]
 			else: mismatch_2_length+=bins_2[bin_2][contig]
 
 		# chose the highest % ID, dependinsh of which bin is  asubset of the other
@@ -121,11 +121,11 @@ for line in open(sys.argv[3]):
 	bins_1_summary[cut[0]+'.fa']=line
 
 for line in open(sys.argv[4]):
-        if "completeness" in line: 
+	if "completeness" in line: 
 		bins_2_summary["header"]=line
 		continue
-        cut=line.strip().split('\t')
-        bins_2_stats[cut[0]+'.fa']=(float(cut[1]), float(cut[2]))
+	cut=line.strip().split('\t')
+	bins_2_stats[cut[0]+'.fa']=(float(cut[1]), float(cut[2]))
 	bins_2_summary[cut[0]+'.fa']=line
 
 

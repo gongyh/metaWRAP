@@ -10,7 +10,7 @@ max_contamination=int(sys.argv[2])
 min_completion=int(sys.argv[1])
 
 ####################################################################################################################################
-############################################         MAKE THE COMPLETION PLOT           ############################################
+############################################	 MAKE THE COMPLETION PLOT	   ############################################
 ####################################################################################################################################
 print("Loading completion info....")
 data={}
@@ -40,10 +40,10 @@ print("Plotting completion data...")
 # MAKING THE PLOT PRETTY!!!!
 # set some color schemes
 tableau20 = [(214, 39, 40), (31, 119, 180), (255, 127, 14),    
-             (44, 160, 44), (255, 152, 150),    
-             (148, 103, 189), (197, 176, 213), (140, 86, 75), (196, 156, 148),    
-             (227, 119, 194), (247, 182, 210), (127, 127, 127), (199, 199, 199),    
-             (188, 189, 34), (219, 219, 141), (23, 190, 207), (158, 218, 229)]
+	     (44, 160, 44), (255, 152, 150),    
+	     (148, 103, 189), (197, 176, 213), (140, 86, 75), (196, 156, 148),    
+	     (227, 119, 194), (247, 182, 210), (127, 127, 127), (199, 199, 199),    
+	     (188, 189, 34), (219, 219, 141), (23, 190, 207), (158, 218, 229)]
 
 for i in range(len(tableau20)):    
 	r, g, b = tableau20[i]    
@@ -128,7 +128,7 @@ plt.ylabel("Estimated bin completion", fontsize=16)
 
 
 ####################################################################################################################################
-############################################         MAKE THE CONTAMINATION PLOT        ############################################
+############################################	 MAKE THE CONTAMINATION PLOT	############################################
 ####################################################################################################################################
 print("Loading contamination info...")
 
@@ -183,9 +183,9 @@ plt.xticks(fontsize=14)
 
 # Provide tick lines across the plot to help your viewers trace along
 for y in range(0, max_contamination+1, 1):
-        plt.axhline(y=y, linestyle="--", lw=0.5, color="black", alpha=0.3)
+	plt.axhline(y=y, linestyle="--", lw=0.5, color="black", alpha=0.3)
 for x in range(0, 1000, 20):
-        plt.axvline(x=x, linestyle="--", lw=0.5, color="black", alpha=0.3)
+	plt.axvline(x=x, linestyle="--", lw=0.5, color="black", alpha=0.3)
 
  
 # Remove the tick marks; they are unnecessary with the tick lines we just plotted.    
@@ -203,18 +203,18 @@ y_increment = max_contamination/N/2
 y_pos = y_increment
 
 for rank, bin_set in enumerate(labels):
-        # chose a color!
-        c=plot_colors[bin_set]
+	# chose a color!
+	c=plot_colors[bin_set]
 
-        # plot the data
-        plt.plot(data[bin_set], lw=2.5, color=c)
+	# plot the data
+	plt.plot(data[bin_set], lw=2.5, color=c)
 
-        # add bin set label to plot
-        for x_pos,y in enumerate(data[bin_set]):
-                if y>y_pos:
-                        break
-        plt.text(x_pos, y_pos, bin_set, fontsize=18, color=c)
-        y_pos+=y_increment
+	# add bin set label to plot
+	for x_pos,y in enumerate(data[bin_set]):
+		if y>y_pos:
+			break
+	plt.text(x_pos, y_pos, bin_set, fontsize=18, color=c)
+	y_pos+=y_increment
 
 
 # add plot and axis titles and adjust the edges

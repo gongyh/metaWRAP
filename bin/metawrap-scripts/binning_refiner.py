@@ -42,26 +42,26 @@ from Bio import SeqIO
 parser = argparse.ArgumentParser()
 
 parser.add_argument('-1',
-                    required=True,
-                    help='first bin folder name')
+		    required=True,
+		    help='first bin folder name')
 
 parser.add_argument('-2',
-                    required=True,
-                    help='second bin folder name')
+		    required=True,
+		    help='second bin folder name')
 
 parser.add_argument('-3',
-                    required=False,
-                    help='third bin folder name')
+		    required=False,
+		    help='third bin folder name')
 
 parser.add_argument('-o',
-                    required=True,
-                    help='output folder name')
+		    required=True,
+		    help='output folder name')
 
 parser.add_argument('-ms',
-                    required=False,
-                    default=524288,
-                    type=int,
-                    help='(optional) minimum size for refined bins, default = 524288 (0.5Mbp)')
+		    required=False,
+		    default=524288,
+		    type=int,
+		    help='(optional) minimum size for refined bins, default = 524288 (0.5Mbp)')
 
 args = vars(parser.parse_args())
 output_dir = args['o']
@@ -79,7 +79,7 @@ if input_bin_folder_2[-1] == '/':
 if args['3'] != None:
     input_bin_folder_3 = args['3']
     if input_bin_folder_3[-1] == '/':
-        input_bin_folder_3 = input_bin_folder_3[:-1]
+	input_bin_folder_3 = input_bin_folder_3[:-1]
 
 bin_size_cutoff = args['ms']
 bin_size_cutoff_MB = float("{0:.2f}".format(bin_size_cutoff / (1024 * 1024)))
@@ -117,27 +117,27 @@ for bin_folder in input_bin_folder_list:
     all_input_bins_number_list.append(len(bin_folder_bins))
     folder_bins_dict[bin_folder] = bin_folder_bins
     if len(bin_folder_bins) == 0:
-        print(('No input bin detected from %s folder, please double-check!' % (bin_folder)))
-        exit()
+	print(('No input bin detected from %s folder, please double-check!' % (bin_folder)))
+	exit()
 
     bin_folder_bins_ext_list = []
     for bin in bin_folder_bins:
-        bin_file_name, bin_file_ext = os.path.splitext(bin)
-        bin_folder_bins_ext_list.append(bin_file_ext)
+	bin_file_name, bin_file_ext = os.path.splitext(bin)
+	bin_folder_bins_ext_list.append(bin_file_ext)
 
     bin_folder_bins_ext_list_uniq = []
     for each in bin_folder_bins_ext_list:
-        if each not in bin_folder_bins_ext_list_uniq:
-            bin_folder_bins_ext_list_uniq.append(each)
-        else:
-            pass
+	if each not in bin_folder_bins_ext_list_uniq:
+	    bin_folder_bins_ext_list_uniq.append(each)
+	else:
+	    pass
     # check whether bins in the same folder have same extension, exit if not
     if len(bin_folder_bins_ext_list_uniq) > 1:
-        print(('Different file extensions were found from %s bins, please use same extension (fa, fas or fasta) '
-              'for all bins in the same folder.' % (bin_folder)))
-        exit()
+	print(('Different file extensions were found from %s bins, please use same extension (fa, fas or fasta) '
+	      'for all bins in the same folder.' % (bin_folder)))
+	exit()
     else:
-        pass
+	pass
 
 
 # create output folder
@@ -158,15 +158,15 @@ for each_folder in input_bin_folder_list:
     # add binning program and bin id to metabat_bin's contig name
     each_folder_bins = folder_bins_dict[each_folder]
     for each_bin in each_folder_bins:
-        bin_file_name, bin_file_ext = os.path.splitext(each_bin)
-        each_bin_content = SeqIO.parse('%s/%s/%s' % (wd, each_folder, each_bin), 'fasta')
-        new = open('%s/%s/%s_new/%s_%s.fasta' % (wd, output_folder, each_folder, each_folder, bin_file_name), 'w')
-        for each_contig in each_bin_content:
-            each_contig_new_id = '%s%s%s%s%s' % (each_folder, separator, bin_file_name, separator, each_contig.id)
-            each_contig.id = each_contig_new_id
-            each_contig.description = ''
-            SeqIO.write(each_contig, new, 'fasta')
-        new.close()
+	bin_file_name, bin_file_ext = os.path.splitext(each_bin)
+	each_bin_content = SeqIO.parse('%s/%s/%s' % (wd, each_folder, each_bin), 'fasta')
+	new = open('%s/%s/%s_new/%s_%s.fasta' % (wd, output_folder, each_folder, each_folder, bin_file_name), 'w')
+	for each_contig in each_bin_content:
+	    each_contig_new_id = '%s%s%s%s%s' % (each_folder, separator, bin_file_name, separator, each_contig.id)
+	    each_contig.id = each_contig_new_id
+	    each_contig.description = ''
+	    SeqIO.write(each_contig, new, 'fasta')
+	new.close()
     # Combine all new bins
     os.system('cat %s/%s/%s_new/*.fasta > %s/%s/combined_%s_bins.fa' % (wd, output_folder, each_folder, wd, output_folder, each_folder))
     os.system('rm -r %s/%s/%s_new' % (wd, output_folder, each_folder))
@@ -194,17 +194,17 @@ for each in combined_all_bins:
     contig_id = each_id_split[2]
     length = len(each.seq)
     if contig_id not in contig_bin_dict:
-        contig_bin_dict[contig_id] = ['%s%s%s' % (folder_name, separator, bin_name)]
-        contig_length_dict[contig_id] = length
+	contig_bin_dict[contig_id] = ['%s%s%s' % (folder_name, separator, bin_name)]
+	contig_length_dict[contig_id] = length
     elif contig_id in contig_bin_dict:
-        contig_bin_dict[contig_id].append('%s%s%s' % (folder_name, separator, bin_name))
+	contig_bin_dict[contig_id].append('%s%s%s' % (folder_name, separator, bin_name))
 contig_assignments_file = '%s/%s/contig_assignments.txt' % (wd, output_folder)
 contig_assignments = open(contig_assignments_file, 'w')
 
 
 for each in contig_bin_dict:
     if len(contig_bin_dict[each]) == len(input_bin_folder_list):
-        contig_assignments.write('%s\t%s\t%s\n' % ('\t'.join(contig_bin_dict[each]), each, contig_length_dict[each]))
+	contig_assignments.write('%s\t%s\t%s\n' % ('\t'.join(contig_bin_dict[each]), each, contig_length_dict[each]))
 
 contig_assignments.close()
 
@@ -226,22 +226,22 @@ for each in contig_assignments_sorted:
     current_length = int(each_split[-1])
     matched_bins = '\t'.join(each_split[:-2])
     if current_match == '':
-        current_match = matched_bins
-        current_match_contigs.append(current_contig)
-        current_length_total += current_length
+	current_match = matched_bins
+	current_match_contigs.append(current_contig)
+	current_length_total += current_length
     elif current_match == matched_bins:
-        current_match_contigs.append(current_contig)
-        current_length_total += current_length
+	current_match_contigs.append(current_contig)
+	current_length_total += current_length
     elif current_match != matched_bins:
-        refined_bin_name = 'refined_bin%s' % n
-        if current_length_total >= bin_size_cutoff:
-            contig_assignments_sorted_one_line.write('Refined_%s\t%s\t%sbp\t%s\n' % (n, current_match, current_length_total,'\t'.join(current_match_contigs)))
-            n += 1
-        current_match = matched_bins
-        current_match_contigs = []
-        current_match_contigs.append(current_contig)
-        current_length_total = 0
-        current_length_total += current_length
+	refined_bin_name = 'refined_bin%s' % n
+	if current_length_total >= bin_size_cutoff:
+	    contig_assignments_sorted_one_line.write('Refined_%s\t%s\t%sbp\t%s\n' % (n, current_match, current_length_total,'\t'.join(current_match_contigs)))
+	    n += 1
+	current_match = matched_bins
+	current_match_contigs = []
+	current_match_contigs.append(current_contig)
+	current_length_total = 0
+	current_length_total += current_length
 if current_length_total >= bin_size_cutoff:
     contig_assignments_sorted_one_line.write('Refined_%s\t%s\t%sbp\t%s\n' % (n, current_match, current_length_total,'\t'.join(current_match_contigs)))
 else:
@@ -274,23 +274,23 @@ for each_refined_bin in refined_bins:
     each_refined_bin_length = 0
     each_refined_bin_contig = []
     if len(input_bin_folder_list) == 2:
-        each_refined_bin_source = each_refined_bin_split[1:3]
-        each_refined_bin_length = int(each_refined_bin_split[3][:-2])
-        each_refined_bin_contig = each_refined_bin_split[4:]
-        separated_1_handle.write('%s\t%sbp\t%s\n' % (each_refined_bin_name, each_refined_bin_length, '\t'.join(each_refined_bin_source)))
-        separated_2_handle.write('%s\n%s\n' % (each_refined_bin_name, '\t'.join(each_refined_bin_contig)))
+	each_refined_bin_source = each_refined_bin_split[1:3]
+	each_refined_bin_length = int(each_refined_bin_split[3][:-2])
+	each_refined_bin_contig = each_refined_bin_split[4:]
+	separated_1_handle.write('%s\t%sbp\t%s\n' % (each_refined_bin_name, each_refined_bin_length, '\t'.join(each_refined_bin_source)))
+	separated_2_handle.write('%s\n%s\n' % (each_refined_bin_name, '\t'.join(each_refined_bin_contig)))
 
     if len(input_bin_folder_list) == 3:
-        each_refined_bin_source = each_refined_bin_split[1:4]
-        each_refined_bin_length = int(each_refined_bin_split[4][:-2])
-        each_refined_bin_contig = each_refined_bin_split[5:]
-        separated_1_handle.write('%s\t%sbp\t%s\n' % (each_refined_bin_name, each_refined_bin_length, '\t'.join(each_refined_bin_source)))
-        separated_2_handle.write('%s\n%s\n' % (each_refined_bin_name, '\t'.join(each_refined_bin_contig)))
+	each_refined_bin_source = each_refined_bin_split[1:4]
+	each_refined_bin_length = int(each_refined_bin_split[4][:-2])
+	each_refined_bin_contig = each_refined_bin_split[5:]
+	separated_1_handle.write('%s\t%sbp\t%s\n' % (each_refined_bin_name, each_refined_bin_length, '\t'.join(each_refined_bin_source)))
+	separated_2_handle.write('%s\n%s\n' % (each_refined_bin_name, '\t'.join(each_refined_bin_contig)))
     each_refined_bin_length_mbp = float("{0:.2f}".format(each_refined_bin_length / (1024 * 1024)))
     m = 0
     while m < len(each_refined_bin_source)-1:
-        googlevis_input_handle.write('%s,%s,%s\n' % (each_refined_bin_source[m], each_refined_bin_source[m+1], each_refined_bin_length_mbp))
-        m += 1
+	googlevis_input_handle.write('%s,%s,%s\n' % (each_refined_bin_source[m], each_refined_bin_source[m+1], each_refined_bin_length_mbp))
+	m += 1
 
     stdout.write('\rExtracting refined bin: %s.fasta' % each_refined_bin_name)
     refined_bin_file = '%s/%s/Refined/%s.fasta' % (wd, output_folder, each_refined_bin_name)
@@ -298,11 +298,11 @@ for each_refined_bin in refined_bins:
     input_contigs_file = '%s/%s/combined_%s_bins.fa' % (wd, output_folder, input_bin_folder_1)
     input_contigs = SeqIO.parse(input_contigs_file, 'fasta')
     for each_input_contig in input_contigs:
-        each_input_contig_id = each_input_contig.id.split(separator)[-1]
-        if each_input_contig_id in each_refined_bin_contig:
-            each_input_contig.id = each_input_contig_id
-            each_input_contig.description = ''
-            SeqIO.write(each_input_contig, refined_bin_handle, 'fasta')
+	each_input_contig_id = each_input_contig.id.split(separator)[-1]
+	if each_input_contig_id in each_refined_bin_contig:
+	    each_input_contig.id = each_input_contig_id
+	    each_input_contig.description = ''
+	    SeqIO.write(each_input_contig, refined_bin_handle, 'fasta')
     refined_bin_handle.close()
 googlevis_input_handle.close()
 separated_1_handle.close()

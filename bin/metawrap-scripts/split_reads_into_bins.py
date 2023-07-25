@@ -33,15 +33,15 @@ for line in open(sys.argv[2]):
 				opened_files[bin_name+"_strict"].write(line1)
 				opened_files[bin_name+"_strict"].write(line2)
 				opened_files[bin_name+"_strict"].write(line3)
-                        
+			
 			for bin_name in mapping[read][1]:
-                                if bin_name+"permissive" not in opened_files:
-                                        print("Opening file "+sys.argv[4]+'/'+bin_name+".permissive_1.fastq")
-                                        opened_files[bin_name+"permissive"] = open(sys.argv[4]+"/"+bin_name+".permissive_1.fastq", 'w')
-                                opened_files[bin_name+"permissive"].write(line0)
-                                opened_files[bin_name+"permissive"].write(line1)
-                                opened_files[bin_name+"permissive"].write(line2)
-                                opened_files[bin_name+"permissive"].write(line3)
+				if bin_name+"permissive" not in opened_files:
+					print("Opening file "+sys.argv[4]+'/'+bin_name+".permissive_1.fastq")
+					opened_files[bin_name+"permissive"] = open(sys.argv[4]+"/"+bin_name+".permissive_1.fastq", 'w')
+				opened_files[bin_name+"permissive"].write(line0)
+				opened_files[bin_name+"permissive"].write(line1)
+				opened_files[bin_name+"permissive"].write(line2)
+				opened_files[bin_name+"permissive"].write(line3)
 print("Closing bin fastq files")
 for f in opened_files: opened_files[f].close()
 
@@ -54,34 +54,34 @@ line3=""
 line4=""
 opened_files={}
 for line in open(sys.argv[3]):
-        ct+=1
-        if ct==4:
-                read=line[1:].split("/")[0]
-                ct=0
+	ct+=1
+	if ct==4:
+		read=line[1:].split("/")[0]
+		ct=0
 
-        if ct==0: line0=line
-        elif ct==1: line1=line
-        elif ct==2: line2=line
-        elif ct==3:
-                line3=line
-                if read in mapping:
-                        for bin_name in mapping[read][0]:
-                                if bin_name+"_strict" not in opened_files:
-                                        print("Opening file "+sys.argv[4]+'/'+bin_name+".strict_2.fastq")
-                                        opened_files[bin_name+"_strict"] = open(sys.argv[4]+"/"+bin_name+".strict_2.fastq", 'w')
-                                opened_files[bin_name+"_strict"].write(line0)
-                                opened_files[bin_name+"_strict"].write(line1)
-                                opened_files[bin_name+"_strict"].write(line2)
-                                opened_files[bin_name+"_strict"].write(line3)
+	if ct==0: line0=line
+	elif ct==1: line1=line
+	elif ct==2: line2=line
+	elif ct==3:
+		line3=line
+		if read in mapping:
+			for bin_name in mapping[read][0]:
+				if bin_name+"_strict" not in opened_files:
+					print("Opening file "+sys.argv[4]+'/'+bin_name+".strict_2.fastq")
+					opened_files[bin_name+"_strict"] = open(sys.argv[4]+"/"+bin_name+".strict_2.fastq", 'w')
+				opened_files[bin_name+"_strict"].write(line0)
+				opened_files[bin_name+"_strict"].write(line1)
+				opened_files[bin_name+"_strict"].write(line2)
+				opened_files[bin_name+"_strict"].write(line3)
 
-                        for bin_name in mapping[read][1]:
-                                if bin_name+"permissive" not in opened_files:
-                                        print("Opening file "+sys.argv[4]+'/'+bin_name+".permissive_2.fastq")
-                                        opened_files[bin_name+"permissive"] = open(sys.argv[4]+"/"+bin_name+".permissive_2.fastq", 'w')
-                                opened_files[bin_name+"permissive"].write(line0)
-                                opened_files[bin_name+"permissive"].write(line1)
-                                opened_files[bin_name+"permissive"].write(line2)
-                                opened_files[bin_name+"permissive"].write(line3)
+			for bin_name in mapping[read][1]:
+				if bin_name+"permissive" not in opened_files:
+					print("Opening file "+sys.argv[4]+'/'+bin_name+".permissive_2.fastq")
+					opened_files[bin_name+"permissive"] = open(sys.argv[4]+"/"+bin_name+".permissive_2.fastq", 'w')
+				opened_files[bin_name+"permissive"].write(line0)
+				opened_files[bin_name+"permissive"].write(line1)
+				opened_files[bin_name+"permissive"].write(line2)
+				opened_files[bin_name+"permissive"].write(line3)
 
 print("Closing bin fastq files")
 for f in opened_files: opened_files[f].close()
