@@ -20,9 +20,10 @@ else:
 
 for line in open(sys.argv[1]):
     cl = line.strip().split("\t")
-    name = cl[0]
-    if name == "bin":  # header
+    c0 = cl[0]
+    if c0 == "bin":  # header
         continue
+    name = c0[:-3] # remove suffix .fa
     if len(sys.argv) == 3:
         print("\t".join([name, cl[1], cl[2], binner]))
 
