@@ -57,8 +57,8 @@ for bin_file in bins_files:
         contig_len = len(contig)
         size += contig_len
         lengths.append(contig_len)
-        gc = sum(contig.seq.count(x) for x in "CGScgs")
-    GC = gc / size
+        num_gc += sum(contig.seq.count(x) for x in "CGScgs")
+    GC = num_gc / size
     all_len = sorted(lengths, reverse=True)
     csum = numpy.cumsum(all_len)
     csumn2 = min(csum[csum >= int(size / 2)])
