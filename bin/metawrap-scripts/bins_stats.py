@@ -64,7 +64,7 @@ for bin_file in bins_files:
     csumn2 = min(csum[csum >= int(size / 2)])
     ind = numpy.where(csum == csumn2)
     n50 = all_len[ind[0][0]]
-    out_fh.write("\n%s\t%.3f\t%d\t%d" % (bin_file_name, GC, n50, size))
+    out_fh.write("\n%s\t%.3f\t%d\t%d" % (bin, GC, n50, size))
 
 out_fh.close()
 
