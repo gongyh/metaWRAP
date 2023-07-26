@@ -47,6 +47,7 @@ out_fh.write("bin\tGC\tN50\tsize")
 
 for bin_file in bins_files:
     bin = os.path.basename(bin_file)
+    print("Processing %s ..." % (bin))
     bin_file_name, bin_file_ext = os.path.splitext(bin)
     bin_content = SeqIO.parse(bin_file, "fasta")
     lengths = []
@@ -62,7 +63,7 @@ for bin_file in bins_files:
     csum = numpy.cumsum(all_len)
     csumn2 = min(csum[csum >= int(size / 2)])
     ind = numpy.where(csum == csumn2)
-    n50 = all_len[ind[0]]
+    n50 = all_len[ind[0][0]]
     out_fh.write("%s\t%.3f\t%d\t%d" % (bin_file_name, GC, n50, size))
 
 out_fh.close()
