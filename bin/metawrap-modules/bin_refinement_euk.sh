@@ -264,7 +264,7 @@ if [ "$run_eukcc" == "true" ] && [[ ! -s work_files/binsM.stats ]]; then
 		if [[ -d ${bin_set}.eukcc ]]; then rm -r ${bin_set}.eukcc; fi
                 eukcc folder --db $EUKCC2_DB --out ${bin_set}.eukcc --threads $threads $bin_set
 		${SOFT}/bins_stats.py -i $bin_set -o ${bin_set}.eukcc/basic.csv
-                join -j 1 -t $'\t' <(sort ${bin_set}.eukcc/eukcc.csv) <(sort ${bin_set}.eukcc/basic.csv) > ${bin_set}.eukcc/eukcc.tsv
+                join -j 1 -t $'\t' <(cat ${bin_set}.eukcc/eukcc.csv | (sed -u 1q; sort)) <(cat ${bin_set}.eukcc/basic.csv | (sed -u 1q; sort)) > ${bin_set}.eukcc/eukcc.tsv
 		if [[ ! -s ${bin_set}.eukcc/eukcc.tsv ]]; then error "Something went wrong with running EukCC. Exiting..."; fi
 		${SOFT}/summarize_eukcc.py ${bin_set}.eukcc/eukcc.tsv $bin_set | (read -r; printf "%s\n" "$REPLY"; sort) > ${bin_set}.stats
 		if [[ $? -ne 0 ]]; then error "Cannot make eukcc summary file. Exiting."; fi
@@ -360,7 +360,7 @@ if [ "$run_eukcc" == "true" ] && [ $dereplicate != "false" ]; then
 	comm "Re-running EukCC on binsO bins"
         eukcc folder --db $EUKCC2_DB --out binsO.eukcc --threads $threads binsO
 	${SOFT}/bins_stats.py -i binsO -o binsO.eukcc/basic.csv
-        join -j 1 -t $'\t' <(sort binsO.eukcc/eukcc.csv) <(sort binsO.eukcc/basic.csv) > binsO.eukcc/eukcc.tsv
+        join -j 1 -t $'\t' <(cat binsO.eukcc/eukcc.csv | (sed -u 1q; sort)) <(cat binsO.eukcc/basic.csv | (sed -u 1q; sort)) > binsO.eukcc/eukcc.tsv
 	if [[ ! -s binsO.eukcc/eukcc.tsv ]]; then error "Something went wrong with running EukCC. Exiting..."; fi
 	${SOFT}/summarize_eukcc.py binsO.eukcc/eukcc.tsv manual binsM.stats | (read -r; printf "%s\n" "$REPLY"; sort -rn -k2) > binsO.stats
 	if [[ $? -ne 0 ]]; then error "Cannot make eukcc summary file. Exiting."; fi

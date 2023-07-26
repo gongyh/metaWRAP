@@ -360,7 +360,7 @@ elif [ "$run_eukcc" = true ] ; then
         if [[ -d ${out}/reassembled_bins.eukcc ]]; then rm -r ${out}/reassembled_bins.eukcc; fi
         eukcc folder --db $EUKCC2_DB --out ${out}/reassembled_bins.eukcc --threads $threads ${out}/reassembled_bins
 	${SOFT}/bins_stats.py -i ${out}/reassembled_bins -o ${out}/reassembled_bins.eukcc/basic.csv
-        join -j 1 -t $'\t' <(sort ${out}/reassembled_bins.eukcc/eukcc.csv) <(sort ${out}/reassembled_bins.eukcc/basic.csv) > ${out}/reassembled_bins.eukcc/eukcc.tsv
+        join -j 1 -t $'\t' <(cat ${out}/reassembled_bins.eukcc/eukcc.csv | (sed -u 1q; sort)) <(cat ${out}/reassembled_bins.eukcc/basic.csv | (sed -u 1q; sort)) > ${out}/reassembled_bins.eukcc/eukcc.tsv
         if [[ ! -s ${out}/reassembled_bins.eukcc/eukcc.tsv ]]; then error "Something went wrong with running EukCC. Exiting..."; fi
         ${SOFT}/summarize_eukcc.py ${out}/reassembled_bins.eukcc/eukcc.tsv | (read -r; printf "%s\n" "$REPLY"; sort) > ${out}/reassembled_bins.stats
         if [[ $? -ne 0 ]]; then error "Cannot make eukcc summary file. Exiting."; fi
