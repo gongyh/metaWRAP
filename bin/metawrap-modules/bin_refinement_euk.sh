@@ -71,7 +71,7 @@ while true; do
 		-B) bins2=$2; shift 2;;
 		-C) bins3=$2; shift 2;;
                 -h | --help) help_message; exit 0; shift 1;;
-		--skip-checkm) run_eukcc=false; shift 1;;
+		--skip-eukcc) run_eukcc=false; shift 1;;
 		--skip-refinement) refine=false; shift 1;;
 		--skip-consolidation) cherry_pick=false; shift 1;;
 		--keep-ambiguous) dereplicate=false; shift 1;;
@@ -263,9 +263,10 @@ if [ "$run_eukcc" == "true" ] && [[ ! -s work_files/binsM.stats ]]; then
 		comm "Running EukCC on $bin_set bins"
 		if [[ -d ${bin_set}.eukcc ]]; then rm -r ${bin_set}.eukcc; fi
                 eukcc folder --db $EUKCC2_DB --out ${bin_set}.eukcc --threads $threads $bin_set
-		
-		if [[ ! -s ${bin_set}.eukcc/eukcc.csv ]]; then error "Something went wrong with running EukCC. Exiting..."; fi
-		${SOFT}/summarize_eukcc.py ${bin_set}.eukcc/eukcc.csv $bin_set | (read -r; printf "%s\n" "$REPLY"; sort) > ${bin_set}.stats
+		${SOFT}/bins_stats.py -i $bin_set -o ${bin_set}.eukcc/basic.csv
+                join -j 1 -t $'\t' <(sort ${bin_set}.eukcc/eukcc.csv) <(sort ${bin_set}.eukcc/basic.csv) > ${bin_set}.eukcc/eukcc.tsv
+		if [[ ! -s ${bin_set}.eukcc/eukcc.tsv ]]; then error "Something went wrong with running EukCC. Exiting..."; fi
+		${SOFT}/summarize_eukcc.py ${bin_set}.eukcc/eukcc.tsv $bin_set | (read -r; printf "%s\n" "$REPLY"; sort) > ${bin_set}.stats
 		if [[ $? -ne 0 ]]; then error "Cannot make eukcc summary file. Exiting."; fi
 		rm -r ${bin_set}.eukcc
 
@@ -323,10 +324,10 @@ if [ "$cherry_pick" == "true" ]; then
 	
 elif [ "$cherry_pick" == "false" ]; then
 	comm "Skipping bin consolidation. Will try to pick the best binning folder without mixing bins from different sources."
-	if [ $run_checkm = false ]; then 
-		comm "cannot decide on best bin set because CheckM was not run. Will assume its binsA (first bin set)"
+	if [ $run_eukcc = false ]; then 
+		comm "cannot decide on best bin set because EukCC was not run. Will assume its binsA (first bin set)"
 		best_bin_set=binsA
-	elif [ $run_checkm = true ]; then
+	elif [ $run_eukcc = true ]; then
 		max=0
 		best_bin_set=none
 		for bin_set in $(ls | grep .stats); do
@@ -340,7 +341,7 @@ elif [ "$cherry_pick" == "false" ]; then
 		if [[ ! -d $best_bin_set ]]; then error "Something went wrong with deciding on the best bin set. Exiting."; fi
 		comm "looks like the best bin set is $best_bin_set"
 	else
-		error "something is wrong with the run_checkm option (${run_checkm})"
+		error "something is wrong with the run_eukcc option (${run_eukcc})"
 	fi
 else
 	error "something is wrong with the cherry_pick option (${cherry_pick})"
@@ -358,9 +359,10 @@ announcement "FINALIZING THE REFINED BINS"
 if [ "$run_eukcc" == "true" ] && [ $dereplicate != "false" ]; then
 	comm "Re-running EukCC on binsO bins"
         eukcc folder --db $EUKCC2_DB --out binsO.eukcc --threads $threads binsO
-
-	if [[ ! -s binsO.eukcc/eukcc.csv ]]; then error "Something went wrong with running EukCC. Exiting..."; fi
-	${SOFT}/summarize_eukcc.py binsO.eukcc/eukcc.csv manual binsM.stats | (read -r; printf "%s\n" "$REPLY"; sort -rn -k2) > binsO.stats
+	${SOFT}/bins_stats.py -i binsO -o binsO.eukcc/basic.csv
+        join -j 1 -t $'\t' <(sort binsO.eukcc/eukcc.csv) <(sort binsO.eukcc/basic.csv) > binsO.eukcc/eukcc.tsv
+	if [[ ! -s binsO.eukcc/eukcc.tsv ]]; then error "Something went wrong with running EukCC. Exiting..."; fi
+	${SOFT}/summarize_eukcc.py binsO.eukcc/eukcc.tsv manual binsM.stats | (read -r; printf "%s\n" "$REPLY"; sort -rn -k2) > binsO.stats
 	if [[ $? -ne 0 ]]; then error "Cannot make eukcc summary file. Exiting."; fi
 	rm -r binsO.eukcc
 	num=$(cat binsO.stats | awk -v c="$comp" -v x="$cont" '{if ($2>=c && $2<=100 && $3>=0 && $3<=x) print $1 }' | wc -l)
@@ -425,7 +427,7 @@ if [[ $n_binnings -eq 3 ]]; then
 fi
 
 
-if [ "$run_checkm" == "true" ]; then
+if [ "$run_eukcc" == "true" ]; then
         comm "making completion and contamination ranking plots of final outputs"
         ${SOFT}/plot_binning_results.py $comp $cont $(ls | grep ".stats")
 	mv binning_results.eps figures/binning_results.eps
