@@ -35,7 +35,7 @@ if input_bin_folder[-1] == "/":
 wd = os.getcwd()
 
 # get bin name list
-bins_files = "%s/%s/*.fa" % (wd, input_bin_folder)
+bins_files = glob.glob("%s/%s/*.fa" % (wd, input_bin_folder))
 
 if len(bins_files) == 0:
     print(("No input bin detected from %s folder, please double-check!" % (bin_folder)))
