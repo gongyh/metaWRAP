@@ -26,7 +26,7 @@ output_dir = args["o"]
 if output_dir[-1] == "/":
     output_dir = output_dir + "stats.csv"
 
-input_bin_folder = args["1"]
+input_bin_folder = args["i"]
 if input_bin_folder[-1] == "/":
     input_bin_folder = input_bin_folder[:-1]
 
