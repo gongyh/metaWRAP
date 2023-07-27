@@ -3,10 +3,10 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
-  - python>=3
   - biopython
-  - checkm-genome>=1.0.12
-  - spades>=3.13.0
+  - numpy
+  - matplotlib
+  - spades
   - eukrep=0.6.7
   - scikit-learn=0.19.2
   - eukcc=2.1.0
