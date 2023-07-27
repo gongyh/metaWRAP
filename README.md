@@ -2,7 +2,7 @@
 
 This repo is originally forked from [bxlab/metaWRAP](https://github.com/bxlab/metaWRAP), and modified to bin eukaryotic MAGs.
 ```
-git clone git@github.com:gongyh/metaWRAP.git && cd metaWRAP
+git clone https://github.com/gongyh/metaWRAP.git && cd metaWRAP
 # edit bin/config-metawrap to setup EUKCC2_DB database
 micromamba env create -f environment.yml --override-channels -c conda-forge -c bioconda
 
