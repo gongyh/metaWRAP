@@ -4,9 +4,9 @@ This repo is originally forked from [bxlab/metaWRAP](https://github.com/bxlab/me
 ```
 git clone git@github.com:gongyh/metaWRAP.git && cd metaWRAP
 # edit bin/config-metawrap to setup EUKCC2_DB database
-conda/mamba/micromamba env create -f environment.yml
+micromamba env create -f environment.yml --override-channels -c conda-forge -c bioconda
 
-conda activate metawrap-py3
+micromamba activate metawrap-py3
 export PATH=$PWD/bin:$PATH
 metawrap split_contigs -h # split eukaryotic contigs
 metawrap binning -h # initial binning
