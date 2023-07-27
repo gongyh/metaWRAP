@@ -102,7 +102,7 @@ while true; do
 		--strict-cut-off) strict_max=$2; shift 2;;
 		--permissive-cut-off) permissive_max=$2; shift 2;;
 		--skip-checkm) run_checkm=false; shift 1;;
-                --use-eukcc) run_eukcc=false; shift 1;;
+                --use-eukcc) run_eukcc=true; shift 1;;
 		--parallel) run_parallel=true; shift 1;;
 		--nanopore) nanopore_reads=$2;nanopore=true; shift 2;;
 		--mdmcleaner) mdmcleaner=true; shift 1;;
