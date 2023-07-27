@@ -100,7 +100,7 @@ plt.xlim(0, max_x)
 # Make sure your axis ticks are large enough to be easily read.
 plt.yticks(
     list(range(0, max_n50, 50000)),
-    [str(x / 1000) + "kb" for x in range(0, max_n50, 50000)],
+    [str(x // 1000) + "kb" for x in range(0, max_n50, 50000)],
     fontsize=14,
 )
 plt.xticks(fontsize=14)
@@ -146,7 +146,7 @@ for rank, bin_set in enumerate(labels):
     plt.plot(data[bin_set], lw=2.5, color=c)
 
     # add bin set label to plot
-    x_pos = len(data[bin_set]) / 4
+    x_pos = len(data[bin_set]) // 4
     y_pos = data[bin_set][x_pos - 1]
     plt.text(x_pos, y_pos, bin_set, fontsize=18, color=c)
 
@@ -276,9 +276,9 @@ for rank, bin_set in enumerate(labels):
     plt.plot(data[bin_set], lw=2.5, color=c)
 
     # add bin set label to plot
-    x_pos = len(data[bin_set]) / 2
+    x_pos = len(data[bin_set]) // 2
     if "reasse" in bin_set:
-        x_pos = len(data[bin_set]) / 3
+        x_pos = len(data[bin_set]) // 3
     y_pos = data[bin_set][x_pos]
     plt.text(x_pos, y_pos, bin_set, fontsize=18, color=c)
 
@@ -390,7 +390,7 @@ for rank, bin_set in enumerate(labels):
 
     # add plot label
     # x_pos = len(data[bin_set])-1-20*(len(rank_order)-rank_order[bin_set]-1)
-    x_pos = len(data[bin_set]) / 3
+    x_pos = len(data[bin_set]) // 3
     y_pos = data[bin_set][x_pos]
     plt.text(x_pos + 1, y_pos, bin_set, fontsize=18, color=c)
 
