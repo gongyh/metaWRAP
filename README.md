@@ -1,5 +1,19 @@
 # MetaWRAP - a flexible pipeline for genome-resolved metagenomic data analysis
 
+This repo is originally forked from [bxlab/metaWRAP](https://github.com/bxlab/metaWRAP), and modified to bin eukaryotic MAGs.
+```
+conda/mamba/micromamba env create -f environment.yml
+conda activate metawrap-py3
+git clone git@github.com:gongyh/metaWRAP.git && cd metaWRAP
+# edit bin/config-metawrap to setup EUKCC2_DB database
+export PATH=$PWD/bin:$PATH
+metawrap split_contigs -h # split eukaryotic contigs
+metawrap binning -h # use original metaWRAP to do initial binning, not use this repo
+metawrap bin_refinement_euk -h # eukaryotic version of bin refinement
+metawrap reassemble_bins -h # eukaryotic version of reassembly
+metawrap classify_bins -h # use original metaWRAP to do taxa assignment, not use this repo
+```
+
  MetaWRAP aims to be an **easy-to-use metagenomic wrapper suite** that accomplishes the core tasks of metagenomic analysis from start to finish: read quality control, assembly, visualization, taxonomic profiling, extracting draft genomes (binning), and functional annotation. Additionally, metaWRAP takes bin extraction and analysis to the next level (see module overview below). While there is no single best approach for processing metagenomic data, metaWRAP is meant to be a fast and simple approach before you delve deeper into parameterization of your analysis. MetaWRAP can be applied to a variety of environments, including gut, water, and soil microbiomes (see metaWRAP paper for benchmarks). Each individual module of metaWRAP is a standalone program, which means you can use only the modules you are interested in for your data.
  
  ![General walkthrough of metaWRAP modules](https://i.imgur.com/6GqRsm3.png)
