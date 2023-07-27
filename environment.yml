@@ -4,6 +4,14 @@ channels:
   - bioconda
 dependencies:
   - biopython
+  - bwa
+  - samtools
+  - perl-bioperl
+  - checkm-genome
+  - concoct=1.0.0
+  - maxbin2
+  - metabat2
+  - seaborn
   - numpy
   - matplotlib
   - spades
