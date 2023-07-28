@@ -7,12 +7,12 @@ dependencies:
   - bwa
   - samtools
   - perl-bioperl
-  - checkm-genome
   - concoct=1.0.0
-  - maxbin2
+  - maxbin2=2.2.6
   - metabat2
   - seaborn
   - numpy
+  - pandas=0.24.2
   - matplotlib
   - spades
   - eukrep=0.6.7

@@ -4,7 +4,7 @@ This repo is originally forked from [bxlab/metaWRAP](https://github.com/bxlab/me
 ```
 git clone https://github.com/gongyh/metaWRAP.git && cd metaWRAP
 # edit bin/config-metawrap to setup EUKCC2_DB database
-micromamba env create -f environment.yml --override-channels -c conda-forge -c bioconda
+micromamba env create -f environment.yml --override-channels -c conda-forge -c bioconda -c defaults
 
 micromamba activate metawrap-py3
 export PATH=$PWD/bin:$PATH
