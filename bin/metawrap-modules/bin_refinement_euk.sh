@@ -123,11 +123,11 @@ if [[ -d $bins1 ]]; then
 	mkdir ${out}/binsA
 	for F in ${bins1}/*; do
 		SIZE=$(stat -c%s "$F")
-		if (( $SIZE > 50000)) && (( $SIZE < 20000000)); then 
+		if (( $SIZE > 50000)); then 
 			BASE=${F##*/}
 			cp $F ${out}/binsA/${BASE%.*}.fa
 		else 
-			echo "Skipping $F because the bin size is not between 50kb and 20Mb"
+			echo "Skipping $F because the bin size is small than 50kb"
 		fi
 	done
 	n_binnings=$((n_binnings +1))
@@ -141,11 +141,11 @@ if [[ -d $bins2 ]]; then
 	mkdir ${out}/binsB
 	for F in ${bins2}/*; do
 		SIZE=$(stat -c%s "$F")
-		if (( $SIZE > 50000)) && (( $SIZE < 20000000)); then 
+		if (( $SIZE > 50000)); then 
 			BASE=${F##*/}
 			cp $F ${out}/binsB/${BASE%.*}.fa
 		else 
-			echo "Skipping $F because the bin size is not between 50kb and 20Mb"
+			echo "Skipping $F because the bin size is small than 50kb"
 		fi
         done
 	n_binnings=$((n_binnings +1))
@@ -157,11 +157,11 @@ if [[ -d $bins3 ]]; then
 	mkdir ${out}/binsC
 	for F in ${bins3}/*; do
 		SIZE=$(stat -c%s "$F")
-		if (( $SIZE > 50000)) && (( $SIZE < 20000000)); then 
+		if (( $SIZE > 50000)); then 
 			BASE=${F##*/}
 			cp $F ${out}/binsC/${BASE%.*}.fa
 		else 
-			echo "Skipping $F because the bin size is not between 50kb and 20Mb"
+			echo "Skipping $F because the bin size is small than 50kb"
 		fi
         done
 	n_binnings=$((n_binnings +1))

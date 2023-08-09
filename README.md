@@ -2,12 +2,12 @@
 
 This repo is originally forked from [bxlab/metaWRAP](https://github.com/bxlab/metaWRAP), and modified to bin eukaryotic MAGs.
 ```
-git clone git@github.com:gongyh/metaWRAP.git && cd metaWRAP
+git clone https://github.com/gongyh/metaWRAP.git && cd metaWRAP
 # edit bin/config-metawrap to setup EUKCC2_DB database
-conda/mamba/micromamba env create -f environment.yml # create conda env
+micromamba env create -f environment.yml
 
-conda activate metawrap-py3
-export PATH=$PWD/bin:$PATH # add into PATH before use
+micromamba activate metawrap-py3
+export PATH=$PWD/bin:$PATH
 metawrap split_contigs -h # split eukaryotic contigs
 metawrap binning -h # initial binning
 metawrap bin_refinement_euk -h # eukaryotic version of bin refinement
